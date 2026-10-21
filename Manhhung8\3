@@ -1,0 +1,22 @@
+import random
+import streamlit as st
+
+st.title("🎮 Game Đoán Số Bí Mật")
+st.write("Tôi đang nghĩ đến một con số từ 1 đến 100.")
+
+if "target" not in st.session_state:
+  st.session_state.target = random.randint(1, 100)
+  st.session_state.attempts = 0
+
+guess = st.number_input("Nhập số bạn đoán:", 1, 100, step=1)
+
+if st.button("Kiểm tra"):
+  st.session_state.attempts += 1
+  if guess < st.session_state.target:
+    st.warning("Số nhỏ quá! Thử số lớn hơn nhé.")
+  elif guess > st.session_state.target:
+    st.warning("Số lớn quá! Thử số nhỏ hơn nhé.")
+  else:
+    st.success(
+        f"🎉 Chính xác! Bạn đã đoán đúng sau {st.session_state.attempts} lần."
+    )
